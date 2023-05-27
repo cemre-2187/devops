@@ -21,7 +21,7 @@ db.init().then(() => {
     app.listen(process.env.PORT, () => console.log('Listening on port 8080'));
 }).catch((err) => {
     console.error(err);
-    process.exit(1);
+    // process.exit(1);
 });
 
 // const gracefulShutdown = () => {
