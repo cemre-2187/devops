@@ -18,7 +18,7 @@ app.delete('/items/:id', deleteItem);
 
 db.init().then(() => {
     console.log('port', process.env.PORT);
-    app.listen(8080, () => console.log('Listening on port 8080'));
+    app.listen(process.env.PORT, () => console.log('Listening on port 8080'));
 }).catch((err) => {
     console.error(err);
     process.exit(1);
