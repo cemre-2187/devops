@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config({ path: `${__dirname}/.env` });
 const db = require('./persistence');
 const getItems = require('./routes/getItems');
 const addItem = require('./routes/addItem');
@@ -15,6 +17,7 @@ app.put('/items/:id', updateItem);
 app.delete('/items/:id', deleteItem);
 
 db.init().then(() => {
+    console.log('port', process.env.PORT);
     app.listen(8080, () => console.log('Listening on port 8080'));
 }).catch((err) => {
     console.error(err);
@@ -23,7 +26,7 @@ db.init().then(() => {
 
 const gracefulShutdown = () => {
     db.teardown()
-        .catch(() => {})
+        .catch(() => { })
         .then(() => process.exit());
 };
 
