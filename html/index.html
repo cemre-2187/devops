@@ -43,7 +43,7 @@
     button.addEventListener('click', () => {
       //send request for sum response 
 
-      fetch(`http://localhost:6002/sum?numberOne=${numberOne.value}&numberTwo=${numberTwo.value}`)
+      fetch(`/sum?numberOne=${numberOne.value}&numberTwo=${numberTwo.value}`)
         .then(response => response.json())
         .then(data => {
           if (data.sum) {
