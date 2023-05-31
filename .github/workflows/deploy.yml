@@ -39,10 +39,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
         
            #Now we have got the access of EC2 and we will start the deploy .
+            cd /var/www
+            pwd
             cd /home/ubuntu/production # we move into our app's folder
             pwd # we print the working directory to check we're in the right place
             git stash
-            git pull # we pull any changes from git
+            sudo git pull # we pull any changes from git
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             npm prune # we remove any unused dependencies
