@@ -37,8 +37,8 @@ jobs:
             USER_NAME : ${{ secrets.USERNAME  }}
         run: |
           echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && git stash && git pull && npm install && pm2 restart all"
+          chmod 600 home/ubuntu/.ssh/authorized_keys
+          ssh -o "StrictHostKeyChecking=no" -i home/ubuntu/.ssh/authorized_keys ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && git stash && git pull && npm install && pm2 restart all"
 
 
       # - uses: actions/checkout@v2 
