@@ -11,6 +11,7 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-eval": "error"
     }
 }

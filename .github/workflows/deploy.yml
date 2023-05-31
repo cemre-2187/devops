@@ -1,0 +1,47 @@
+name: DevOpsCICD
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install # installs dependencies
+      - run: npm test # runs tests
+      - run: npm run lint # runs linting
+
+        env:
+          CI: true # shows terminal output!
+
+  deployproduction:
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
+    steps:
+      - name: Deploying the Hello World Project
+        uses: appleboy/ssh-action@master # An action made to control Linux servers
+        with: # We set all our secrets here for the action, these won't be shown in the action logs
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu/production # we move into our app's folder
+            git stash
+            git pull # we pull any changes from git
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            npm prune # we remove any unused dependencies
+            npm install # we install any missing dependencies
+            pm2 reload all # we reload the app via PM2
+
+            
