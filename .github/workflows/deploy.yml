@@ -27,9 +27,8 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
     steps:
-      - name: Deploying the Devops Project
-        uses: appleboy/ssh-action@master # An action made to control Linux servers
-      - name: Deploying the Devops Project
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
         env:
           PRIVATE_KEY: ${{ secrets.PASSWORD  }}
           HOSTNAME : '18.237.106.133'
