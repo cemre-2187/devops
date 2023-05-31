@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > devops.pem
           chmod 400 devops.pem
-          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && git stash && git config --global --add safe.directory /home/ubuntu/production/devops && sudo git pull && sudo npm install && pm2 restart all"
+          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && git stash && sudo git pull && sudo npm install && pm2 restart all"
 
 
       # - uses: actions/checkout@v2 
