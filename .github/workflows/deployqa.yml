@@ -27,21 +27,18 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/qa' 
     steps:
-      - name: Deploying the Hello World Project
-        uses: appleboy/ssh-action@master # An action made to control Linux servers
-        with: # We set all our secrets here for the action, these won't be shown in the action logs
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd /home/ubuntu/production # we move into our app's folder
-            git stash
-            git pull # we pull any changes from git
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            npm prune # we remove any unused dependencies
-            npm install # we install any missing dependencies
-            pm2 reload all # we reload the app via PM2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to AWS EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.PASSWORD  }}
+            USER_NAME : ${{ secrets.USERNAME  }}
+        run: |
+          echo "$PRIVATE_KEY" > devops.pem
+          chmod 400 devops.pem
+          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.109.25 "cd /home/ubuntu/qa/devops && sudo git pull && sudo npm install && pm2 restart all"
+
+
 
             

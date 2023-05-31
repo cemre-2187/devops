@@ -25,7 +25,7 @@ jobs:
 
   deployproduction:
     runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
+    if: github.ref == 'refs/heads/main' 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -33,7 +33,6 @@ jobs:
       - name: Deploy to AWS EC2
         env:
             PRIVATE_KEY: ${{ secrets.PASSWORD  }}
-            HOSTNAME : '35.85.31.201'
             USER_NAME : ${{ secrets.USERNAME  }}
         run: |
           echo "$PRIVATE_KEY" > devops.pem
