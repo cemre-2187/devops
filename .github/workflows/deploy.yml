@@ -27,14 +27,19 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
     steps:
-      - name: Deploying the Hello World Project
+      - name: Deploying the Devops Project
         uses: appleboy/ssh-action@master # An action made to control Linux servers
-        with: # We set all our secrets here for the action, these won't be shown in the action logs
-          host: '18.237.106.133'
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
+      - name: Deploying the Devops Project
+        env:
+          PRIVATE_KEY: ${{ secrets.PASSWORD  }}
+          HOSTNAME : '18.237.106.133'
+          USER_NAME : ${{ secrets.USERNAME  }}
+          
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+        
+           #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ubuntu/production # we move into our app's folder
             git stash
             git pull # we pull any changes from git
