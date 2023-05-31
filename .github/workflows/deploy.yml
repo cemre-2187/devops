@@ -38,31 +38,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > devops.pem
           chmod 400 devops.pem
-          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && git stash && sudo git pull && sudo npm install && pm2 restart all"
+          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.106.133 "cd /home/ubuntu/production/devops && sudo git config --global --add safe.directory /home/ubuntu/production/devop && git stash && sudo git pull && sudo npm install && pm2 restart all"
 
 
-      # - uses: actions/checkout@v2 
-      # - name: Deploy in EC2
-      #   env:
-      #     PRIVATE_KEY: ${{ secrets.PASSWORD  }}
-      #     HOSTNAME : '18.237.106.133'
-      #     USER_NAME : ${{ secrets.USERNAME  }}
-          
-      #   run: |
-      #     echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-      #     ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-        
-      #      #Now we have got the access of EC2 and we will start the deploy .
-      #       pwd
-      #       cd production/devops # we move into our app's folder
-      #       ls
-      #       pwd # we print the working directory to check we're in the right place
-      #       git stash
-      #       sudo git pull # we pull any changes from git
-      #       export NVM_DIR="$HOME/.nvm"
-      #       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      #       npm prune # we remove any unused dependencies
-      #       npm install # we install any missing dependencies
-      #       #pm2 reload all # we reload the app via PM2
-
-            
+   
