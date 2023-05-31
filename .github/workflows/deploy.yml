@@ -27,28 +27,40 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our development branch (so we don't put unfinished branches in production)
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
         env:
-          PRIVATE_KEY: ${{ secrets.PASSWORD  }}
-          HOSTNAME : '18.237.106.133'
-          USER_NAME : ${{ secrets.USERNAME  }}
+          SSH_PRIVATE_KEY: ${{ secrets.PASSWORD }}
+          REMOTE_HOST: '18.237.106.133'
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: 'production/devops'
+
+
+      # - uses: actions/checkout@v2 
+      # - name: Deploy in EC2
+      #   env:
+      #     PRIVATE_KEY: ${{ secrets.PASSWORD  }}
+      #     HOSTNAME : '18.237.106.133'
+      #     USER_NAME : ${{ secrets.USERNAME  }}
           
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+      #   run: |
+      #     echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+      #     ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
         
-           #Now we have got the access of EC2 and we will start the deploy .
-            pwd
-            cd production/devops # we move into our app's folder
-            ls
-            pwd # we print the working directory to check we're in the right place
-            git stash
-            sudo git pull # we pull any changes from git
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            npm prune # we remove any unused dependencies
-            npm install # we install any missing dependencies
-            #pm2 reload all # we reload the app via PM2
+      #      #Now we have got the access of EC2 and we will start the deploy .
+      #       pwd
+      #       cd production/devops # we move into our app's folder
+      #       ls
+      #       pwd # we print the working directory to check we're in the right place
+      #       git stash
+      #       sudo git pull # we pull any changes from git
+      #       export NVM_DIR="$HOME/.nvm"
+      #       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      #       npm prune # we remove any unused dependencies
+      #       npm install # we install any missing dependencies
+      #       #pm2 reload all # we reload the app via PM2
 
             
