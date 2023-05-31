@@ -40,7 +40,7 @@ jobs:
         
            #Now we have got the access of EC2 and we will start the deploy .
             pwd
-            cd production # we move into our app's folder
+            cd production/devops # we move into our app's folder
             pwd # we print the working directory to check we're in the right place
             git stash
             sudo git pull # we pull any changes from git
