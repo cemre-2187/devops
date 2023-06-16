@@ -14,6 +14,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/html'));
 
+const histogram = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds histogram',
+  labelNames: ['method', 'route', 'code'],
+  buckets: [1, 2, 5, 6, 10]
+});
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const elapsed = Date.now() - start;
+    histogram.labels(req.method, req.route.path, res.statusCode).observe(elapsed / 1000);
+  });
+  next();
+});
+
 app.get('/sum', (req, res) => {
    //var SastTest;
   // eval is a dangerous function for security. Example: Code Injection
