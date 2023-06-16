@@ -1,7 +1,7 @@
 const addService = (numberOne, numberTwo) => {
-  // if (!numberOne || !numberTwo) {
-  //   return { message: "Number can not be empty" }
-  // }
+  if (!numberOne || !numberTwo) {
+    return { message: "Number can not be empty" }
+  }
 
   if(numberOne === "0" || numberTwo === "0"){
     return { message: "Numbers can not be zero" }
