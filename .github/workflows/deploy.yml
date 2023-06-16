@@ -25,19 +25,16 @@ jobs:
 
   deployproduction:
     runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/main' 
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Deploy to AWS EC2
         env:
-            PRIVATE_KEY: ${{ secrets.PASSWORD  }}
-            USER_NAME : ${{ secrets.USERNAME  }}
+          PRIVATE_KEY: ${{ secrets.PASSWORD  }}
+          USER_NAME: ${{ secrets.USERNAME  }}
         run: |
           echo "$PRIVATE_KEY" > devops.pem
           chmod 400 devops.pem
-          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@35.85.31.201 "cd /home/ubuntu/production/devops && sudo git pull && sudo npm install && pm2 restart all"
-
-
-   
+          ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.95.107 "cd /home/ubuntu/production/devops && sudo git pull && sudo npm install && pm2 restart all"
