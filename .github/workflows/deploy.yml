@@ -19,14 +19,6 @@ jobs:
       - run: npm install # installs dependencies
       - run: npm test # runs tests
       - run: npm run lint # runs linting
-
-        env:
-          CI: true # shows terminal output!
-
-  deployproduction:
-    runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/main'
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -38,3 +30,7 @@ jobs:
           echo "$PRIVATE_KEY" > devops.pem
           chmod 400 devops.pem
           ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.95.107 "cd /home/ubuntu/production/devops && sudo git pull && sudo npm install && pm2 restart all"
+        env:
+          CI: true # shows terminal output!
+
+     
