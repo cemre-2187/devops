@@ -23,7 +23,7 @@ app.get('/sum', (req, res) => {
 })
 
 
-app.get('/alert', (req, res) => {
+app.post('/alert', (req, res) => {
   console.log(req.body,"-", req.query)
  res.status(200).send(result)
 })
