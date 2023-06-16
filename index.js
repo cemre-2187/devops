@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `${__dirname}/.env` });
 const port = process.env.PORT || 3000;
 const addService = require('./addService');
+const client = require('prom-client');
 
 app.use(cors());
 
@@ -21,11 +22,15 @@ app.get('/sum', (req, res) => {
   let result = addService(numberOne, numberTwo);
   res.status(200).send(result)
 })
-
+//prometheus
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(client.register.metrics());
+});
 
 app.post('/alert', (req, res) => {
   console.log(req.body,"-", req.query)
-  
+
  res.status(200).send("OK")
 })
 
