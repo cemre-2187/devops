@@ -23,9 +23,10 @@ app.get('/sum', (req, res) => {
   res.status(200).send(result)
 })
 //prometheus
-app.get('/metrics', (req, res) => {
+app.get('/metrics', async(req, res) => {
   res.set('Content-Type', client.register.contentType);
-  res.end(client.register.metrics());
+  const metrics = await client.register.metrics();
+  res.end(metrics);
 });
 
 app.post('/alert', (req, res) => {
