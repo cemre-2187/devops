@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const fs = require('fs');
 
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -46,8 +47,14 @@ app.get('/metrics', async(req, res) => {
 });
 
 app.post('/alert', (req, res) => {
-  console.log(req.body,"-", req.query)
+  
+  const data =JSON.stringify(req.body)+"\n\n\n\n";
 
+  fs.appendFile('alerts.txt', data, (err) => {
+    if (err) throw err;
+    console.log('Veri dosyaya başarıyla eklendi.');
+  });
+  
  res.status(200).send("OK")
 })
 
