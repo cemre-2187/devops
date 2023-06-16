@@ -6,6 +6,8 @@ const addService = (numberOne, numberTwo) => {
   if(numberOne === "0" || numberTwo === "0"){
     return { message: "Numbers can not be zero" }
   }
+
+  // This will be hotfix
   if (numberOne < 0 || numberTwo < 0) {
     return { message: "Number can not be negative" }
   }

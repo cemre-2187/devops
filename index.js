@@ -14,16 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/html'));
 
 app.get('/sum', (req, res) => {
-  // var SastTest;
+   var SastTest;
   // eval is a dangerous function for security. Example: Code Injection
-  // eval("console.log('Hello Sast!');");
+   eval("console.log('Hello Sast!');");
   const { numberOne, numberTwo } = req.query;
-
-  // This will be hotfix
-  if (numberOne < 0 || numberTwo < 0) {
-    res.status(400).send({ message: "Number can not be negative" })
-  }
-  
   let result = addService(numberOne, numberTwo);
   res.status(200).send(result)
 })
