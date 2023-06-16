@@ -25,7 +25,8 @@ app.get('/sum', (req, res) => {
 
 app.post('/alert', (req, res) => {
   console.log(req.body,"-", req.query)
- res.status(200).send(result)
+  
+ res.status(200).send("OK")
 })
 
 
