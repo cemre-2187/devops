@@ -22,6 +22,13 @@ app.get('/sum', (req, res) => {
   res.status(200).send(result)
 })
 
+
+app.get('/alert', (req, res) => {
+  console.log(req.body,"-", req.query)
+ res.status(200).send(result)
+})
+
+
 app.use('*', (req, res) => {
   res.status(404).send({ message: "404 Not Found" })
 })
