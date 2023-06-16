@@ -7,16 +7,17 @@ const addService = (numberOne, numberTwo) => {
     return { message: "Numbers can not be zero" }
   }
 
+  // This will be hotfix
+  if (numberOne < 0 || numberTwo < 0) {
+    return { message: "Number can not be negative" }
+  }
 
   // const sum = parseInt(numberOne) + parseInt(numberTwo);
 
   // This Feature will be added in the test 
   let sum = Number(numberOne) + Number(numberTwo);
 
-  // This will be hotfix
-  // if (numberOne < 0 || numberTwo < 0) {
-  //   res.status(400).send({ message: "Number can not be negative" })
-  // }
+  
   return { sum, message: "Sum success" };
 }
 

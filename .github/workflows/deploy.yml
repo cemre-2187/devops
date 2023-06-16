@@ -19,19 +19,12 @@ jobs:
       - run: npm install # installs dependencies
       - run: npm test # runs tests
       - run: npm run lint # runs linting
-
-        env:
-          CI: true # shows terminal output!
-
-  deployproduction:
-    runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/main'
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Deploy to AWS EC2
         env:
+          CI: true # shows terminal output!
           PRIVATE_KEY: ${{ secrets.PASSWORD  }}
           USER_NAME: ${{ secrets.USERNAME  }}
         run: |
