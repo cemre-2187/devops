@@ -24,13 +24,10 @@ jobs:
 
       - name: Deploy to AWS EC2
         env:
+          CI: true # shows terminal output!
           PRIVATE_KEY: ${{ secrets.PASSWORD  }}
           USER_NAME: ${{ secrets.USERNAME  }}
         run: |
           echo "$PRIVATE_KEY" > devops.pem
           chmod 400 devops.pem
           ssh -o "StrictHostKeyChecking=no" -i devops.pem ubuntu@18.237.95.107 "cd /home/ubuntu/production/devops && sudo git pull && sudo npm install && pm2 restart all"
-        env:
-          CI: true # shows terminal output!
-
-     
