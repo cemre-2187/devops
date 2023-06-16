@@ -8,10 +8,10 @@ const addService = (numberOne, numberTwo) => {
   }
 
 
-  const sum = parseInt(numberOne) + parseInt(numberTwo);
+  // const sum = parseInt(numberOne) + parseInt(numberTwo);
 
   // This Feature will be added in the test 
-  // let sum = Number(numberOne) + Number(numberTwo);
+  let sum = Number(numberOne) + Number(numberTwo);
 
   // This will be hotfix
   // if (numberOne < 0 || numberTwo < 0) {
