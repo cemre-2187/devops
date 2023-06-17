@@ -8,10 +8,10 @@ const addService = (numberOne, numberTwo) => {
     return { message: "Numbers can not be zero" }
   }
 
-  // This will be hotfix
-  // if (numberOne < 0 || numberTwo < 0) {
-  //   return { message: "Number can not be negative" }
-  // }
+ // This will be hotfix
+  if (numberOne < 0 || numberTwo < 0) {
+    return { message: "Number can not be negative" }
+  }
 
    const sum = parseInt(numberOne) + parseInt(numberTwo);
 
