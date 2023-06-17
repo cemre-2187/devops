@@ -13,10 +13,10 @@ const addService = (numberOne, numberTwo) => {
   //   return { message: "Number can not be negative" }
   // }
 
-   const sum = parseInt(numberOne) + parseInt(numberTwo);
+ //  const sum = parseInt(numberOne) + parseInt(numberTwo);
 
   // This Feature will be added in the test 
- // let sum = Number(numberOne) + Number(numberTwo);
+ let sum = Number(numberOne) + Number(numberTwo);
 
   
   return { sum, message: "Sum success" };
