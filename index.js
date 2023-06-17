@@ -39,6 +39,7 @@ app.get('/sum', (req, res) => {
   let result = addService(numberOne, numberTwo);
   res.status(200).send(result)
 })
+
 //prometheus
 app.get('/metrics', async(req, res) => {
   res.set('Content-Type', client.register.contentType);
@@ -47,9 +48,7 @@ app.get('/metrics', async(req, res) => {
 });
 
 app.post('/alert', (req, res) => {
-  
   const data = new Date().toISOString()+"\n"+JSON.stringify(req.body)+"\n\n\n\n";
-
   fs.appendFile('alerts.txt', data, (err) => {
     if (err) throw err;
     console.log('Veri dosyaya başarıyla eklendi.');

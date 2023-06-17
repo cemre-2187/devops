@@ -5,6 +5,6 @@ test('Adding two numbers', async () => {
 })
 
 test('Test Negative Numbers', async () => {
-//expect(addService(123, -3)).toStrictEqual({ sum: 120, message: "Sum success" })
-   expect(addService(123, -3)).toStrictEqual({ message: "Number can not be negative" })
+expect(addService(123, -3)).toStrictEqual({ sum: 120, message: "Sum success" })
+ //  expect(addService(123, -3)).toStrictEqual({ message: "Number can not be negative" })
 })
