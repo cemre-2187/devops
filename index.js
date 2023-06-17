@@ -32,9 +32,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/sum', (req, res) => {
-   //var SastTest;
+   var SastTest;
   // eval is a dangerous function for security. Example: Code Injection
-   //eval("console.log('Hello Sast!');");
+   eval("console.log('Hello Sast!');");
   const { numberOne, numberTwo } = req.query;
   let result = addService(numberOne, numberTwo);
   res.status(200).send(result)
